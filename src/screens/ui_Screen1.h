@@ -21,7 +21,6 @@ extern lv_obj_t * ui_Humidity;
 extern lv_obj_t * ui_Humidity_history;
 extern void ui_event_Button_to_screen2(lv_event_t * e);
 extern lv_obj_t * ui_Button_to_screen2;
-extern lv_obj_t * ui_Panel1;
 // CUSTOM VARIABLES
 extern lv_obj_t * uic_Screen1;
 extern lv_obj_t * uic_Temperature;
