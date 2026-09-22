@@ -31,6 +31,8 @@ void app_init(void) {
   lv_label_set_text(ui_Humidity, "-- %");
   lv_label_set_text(ui_Temperature_bathroom, "-- C");
   lv_label_set_text(ui_Temperature_toilet, "-- C");
+  app_set_bathroom_heating(false);
+  app_set_toilet_heating(false);
 }
 
 void app_set_temperature(float celsius) {
@@ -49,6 +51,27 @@ void app_set_bathroom_temperature(float celsius) {
 
 void app_set_toilet_temperature(float celsius) {
   lv_label_set_text_fmt(ui_Temperature_toilet, "%.1f C", celsius);
+}
+
+// Colors/glow lifted from the LED objects as exported by SquareLine.
+static constexpr uint32_t LED_ON_COLOR = 0xFF0000;
+static constexpr uint32_t LED_ON_SHADOW = 0xBE2C2C;
+static constexpr uint32_t LED_OFF_COLOR = 0x330000;
+
+static void set_led(lv_obj_t *led, bool on) {
+  lv_obj_set_style_bg_color(led, lv_color_hex(on ? LED_ON_COLOR : LED_OFF_COLOR), LV_PART_MAIN | LV_STATE_DEFAULT);
+  lv_obj_set_style_shadow_color(led, lv_color_hex(LED_ON_SHADOW), LV_PART_MAIN | LV_STATE_DEFAULT);
+  lv_obj_set_style_shadow_width(led, on ? 15 : 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+  lv_obj_set_style_shadow_spread(led, on ? 2 : 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+  lv_obj_set_style_shadow_opa(led, on ? 255 : 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+}
+
+void app_set_bathroom_heating(bool on) {
+  set_led(ui_Bathroom_heating_LED, on);
+}
+
+void app_set_toilet_heating(bool on) {
+  set_led(ui_Toilet_heating_LED, on);
 }
 
 void app_set_net_status(const char *text) {

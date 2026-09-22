@@ -14,5 +14,10 @@ void app_set_humidity(int percent);
 void app_set_bathroom_temperature(float celsius);
 void app_set_toilet_temperature(float celsius);
 
+// Screen 2: heating LED indicators. on=true lights the LED (bright red with a
+// glow), on=false shows it unlit (dark, no glow) - like a real LED.
+void app_set_bathroom_heating(bool on);
+void app_set_toilet_heating(bool on);
+
 // Small status line at the bottom-left of the screen (network state).
 void app_set_net_status(const char *text);
