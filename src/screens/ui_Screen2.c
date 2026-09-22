@@ -9,6 +9,8 @@ lv_obj_t * uic_Toilet_heating_LED;
 lv_obj_t * uic_Bathroom_heating_LED;
 lv_obj_t * uic_decrement_shower;
 lv_obj_t * uic_increment_shower;
+lv_obj_t * uic_Bathroom_heating_enable;
+lv_obj_t * uic_Toilet_heating_enable;
 lv_obj_t * uic_Spinbox_toilet;
 lv_obj_t * uic_Spinbox_shower;
 lv_obj_t * uic_Temperature_toilet;
@@ -22,8 +24,8 @@ lv_obj_t * ui_Temperature_bathroom = NULL;
 lv_obj_t * ui_Temperature_toilet = NULL;
 lv_obj_t * ui_Spinbox_shower = NULL;
 lv_obj_t * ui_Spinbox_toilet = NULL;
-lv_obj_t * ui_Switch1 = NULL;
-lv_obj_t * ui_Switch2 = NULL;
+lv_obj_t * ui_Toilet_heating_enable = NULL;
+lv_obj_t * ui_Bathroom_heating_enable = NULL;
 lv_obj_t * ui_increment_shower = NULL;
 lv_obj_t * ui_decrement_shower = NULL;
 lv_obj_t * ui_increment_shower1 = NULL;
@@ -170,19 +172,19 @@ void ui_Screen2_screen_init(void)
     lv_obj_set_style_text_align(ui_Spinbox_toilet, LV_TEXT_ALIGN_CENTER, LV_PART_CURSOR | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_Spinbox_toilet, &lv_font_montserrat_30, LV_PART_CURSOR | LV_STATE_DEFAULT);
 
-    ui_Switch1 = lv_switch_create(ui_Screen2);
-    lv_obj_set_width(ui_Switch1, 50);
-    lv_obj_set_height(ui_Switch1, 25);
-    lv_obj_set_x(ui_Switch1, 21);
-    lv_obj_set_y(ui_Switch1, 76);
-    lv_obj_set_align(ui_Switch1, LV_ALIGN_CENTER);
+    ui_Toilet_heating_enable = lv_switch_create(ui_Screen2);
+    lv_obj_set_width(ui_Toilet_heating_enable, 98);
+    lv_obj_set_height(ui_Toilet_heating_enable, 25);
+    lv_obj_set_x(ui_Toilet_heating_enable, -332);
+    lv_obj_set_y(ui_Toilet_heating_enable, 17);
+    lv_obj_set_align(ui_Toilet_heating_enable, LV_ALIGN_CENTER);
 
-    ui_Switch2 = lv_switch_create(ui_Screen2);
-    lv_obj_set_width(ui_Switch2, 50);
-    lv_obj_set_height(ui_Switch2, 25);
-    lv_obj_set_x(ui_Switch2, -332);
-    lv_obj_set_y(ui_Switch2, 79);
-    lv_obj_set_align(ui_Switch2, LV_ALIGN_CENTER);
+    ui_Bathroom_heating_enable = lv_switch_create(ui_Screen2);
+    lv_obj_set_width(ui_Bathroom_heating_enable, 50);
+    lv_obj_set_height(ui_Bathroom_heating_enable, 25);
+    lv_obj_set_x(ui_Bathroom_heating_enable, -336);
+    lv_obj_set_y(ui_Bathroom_heating_enable, 79);
+    lv_obj_set_align(ui_Bathroom_heating_enable, LV_ALIGN_CENTER);
 
     ui_increment_shower = lv_btn_create(ui_Screen2);
     lv_obj_set_width(ui_increment_shower, 50);
@@ -224,7 +226,7 @@ void ui_Screen2_screen_init(void)
     ui_Bathroom_heating_LED = lv_obj_create(ui_Screen2);
     lv_obj_set_width(ui_Bathroom_heating_LED, 20);
     lv_obj_set_height(ui_Bathroom_heating_LED, 20);
-    lv_obj_set_x(ui_Bathroom_heating_LED, -208);
+    lv_obj_set_x(ui_Bathroom_heating_LED, -210);
     lv_obj_set_y(ui_Bathroom_heating_LED, -77);
     lv_obj_set_align(ui_Bathroom_heating_LED, LV_ALIGN_CENTER);
     lv_obj_clear_flag(ui_Bathroom_heating_LED, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
@@ -239,7 +241,7 @@ void ui_Screen2_screen_init(void)
     ui_Toilet_heating_LED = lv_obj_create(ui_Screen2);
     lv_obj_set_width(ui_Toilet_heating_LED, 20);
     lv_obj_set_height(ui_Toilet_heating_LED, 20);
-    lv_obj_set_x(ui_Toilet_heating_LED, 139);
+    lv_obj_set_x(ui_Toilet_heating_LED, 130);
     lv_obj_set_y(ui_Toilet_heating_LED, -77);
     lv_obj_set_align(ui_Toilet_heating_LED, LV_ALIGN_CENTER);
     lv_obj_clear_flag(ui_Toilet_heating_LED, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
@@ -261,6 +263,8 @@ void ui_Screen2_screen_init(void)
     uic_Temperature_toilet = ui_Temperature_toilet;
     uic_Spinbox_shower = ui_Spinbox_shower;
     uic_Spinbox_toilet = ui_Spinbox_toilet;
+    uic_Toilet_heating_enable = ui_Toilet_heating_enable;
+    uic_Bathroom_heating_enable = ui_Bathroom_heating_enable;
     uic_increment_shower = ui_increment_shower;
     uic_decrement_shower = ui_decrement_shower;
     uic_Bathroom_heating_LED = ui_Bathroom_heating_LED;
@@ -286,8 +290,10 @@ void ui_Screen2_screen_destroy(void)
     ui_Spinbox_shower = NULL;
     uic_Spinbox_toilet = NULL;
     ui_Spinbox_toilet = NULL;
-    ui_Switch1 = NULL;
-    ui_Switch2 = NULL;
+    uic_Toilet_heating_enable = NULL;
+    ui_Toilet_heating_enable = NULL;
+    uic_Bathroom_heating_enable = NULL;
+    ui_Bathroom_heating_enable = NULL;
     uic_increment_shower = NULL;
     ui_increment_shower = NULL;
     uic_decrement_shower = NULL;
