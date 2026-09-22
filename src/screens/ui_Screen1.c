@@ -17,6 +17,7 @@ lv_obj_t * ui_Temperature_history = NULL;
 lv_obj_t * ui_Humidity = NULL;
 lv_obj_t * ui_Humidity_history = NULL;
 lv_obj_t * ui_Button_to_screen2 = NULL;
+lv_obj_t * ui_Panel1 = NULL;
 // event funtions
 void ui_event_Screen1(lv_event_t * e)
 {
@@ -110,6 +111,14 @@ void ui_Screen1_screen_init(void)
     lv_obj_add_flag(ui_Button_to_screen2, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
     lv_obj_clear_flag(ui_Button_to_screen2, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
+    ui_Panel1 = lv_obj_create(ui_Screen1);
+    lv_obj_set_width(ui_Panel1, 100);
+    lv_obj_set_height(ui_Panel1, 50);
+    lv_obj_set_x(ui_Panel1, 791);
+    lv_obj_set_y(ui_Panel1, -85);
+    lv_obj_set_align(ui_Panel1, LV_ALIGN_CENTER);
+    lv_obj_clear_flag(ui_Panel1, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+
     lv_obj_add_event_cb(ui_Button_to_screen2, ui_event_Button_to_screen2, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_Screen1, ui_event_Screen1, LV_EVENT_ALL, NULL);
     uic_Screen1 = ui_Screen1;
@@ -138,5 +147,6 @@ void ui_Screen1_screen_destroy(void)
     ui_Humidity_history = NULL;
     uic_Button_to_screen2 = NULL;
     ui_Button_to_screen2 = NULL;
+    ui_Panel1 = NULL;
 
 }

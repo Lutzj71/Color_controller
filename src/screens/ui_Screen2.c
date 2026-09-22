@@ -5,6 +5,8 @@
 
 #include "../ui.h"
 
+lv_obj_t * uic_Toilet_heating_LED;
+lv_obj_t * uic_Bathroom_heating_LED;
 lv_obj_t * uic_decrement_shower;
 lv_obj_t * uic_increment_shower;
 lv_obj_t * uic_Spinbox_toilet;
@@ -26,6 +28,8 @@ lv_obj_t * ui_increment_shower = NULL;
 lv_obj_t * ui_decrement_shower = NULL;
 lv_obj_t * ui_increment_shower1 = NULL;
 lv_obj_t * ui_decrement_shower1 = NULL;
+lv_obj_t * ui_Bathroom_heating_LED = NULL;
+lv_obj_t * ui_Toilet_heating_LED = NULL;
 // event funtions
 void ui_event_Button_to_screen1(lv_event_t * e)
 {
@@ -217,6 +221,36 @@ void ui_Screen2_screen_init(void)
     lv_obj_add_flag(ui_decrement_shower1, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
     lv_obj_clear_flag(ui_decrement_shower1, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
+    ui_Bathroom_heating_LED = lv_obj_create(ui_Screen2);
+    lv_obj_set_width(ui_Bathroom_heating_LED, 20);
+    lv_obj_set_height(ui_Bathroom_heating_LED, 20);
+    lv_obj_set_x(ui_Bathroom_heating_LED, -208);
+    lv_obj_set_y(ui_Bathroom_heating_LED, -77);
+    lv_obj_set_align(ui_Bathroom_heating_LED, LV_ALIGN_CENTER);
+    lv_obj_clear_flag(ui_Bathroom_heating_LED, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_obj_set_style_radius(ui_Bathroom_heating_LED, 50, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_Bathroom_heating_LED, lv_color_hex(0xFF0000), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_Bathroom_heating_LED, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_outline_color(ui_Bathroom_heating_LED, lv_color_hex(0x8A2727), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_outline_opa(ui_Bathroom_heating_LED, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_color(ui_Bathroom_heating_LED, lv_color_hex(0xBE2C2C), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_opa(ui_Bathroom_heating_LED, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_Toilet_heating_LED = lv_obj_create(ui_Screen2);
+    lv_obj_set_width(ui_Toilet_heating_LED, 20);
+    lv_obj_set_height(ui_Toilet_heating_LED, 20);
+    lv_obj_set_x(ui_Toilet_heating_LED, 139);
+    lv_obj_set_y(ui_Toilet_heating_LED, -77);
+    lv_obj_set_align(ui_Toilet_heating_LED, LV_ALIGN_CENTER);
+    lv_obj_clear_flag(ui_Toilet_heating_LED, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_obj_set_style_radius(ui_Toilet_heating_LED, 50, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_Toilet_heating_LED, lv_color_hex(0xFF0000), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_Toilet_heating_LED, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_outline_color(ui_Toilet_heating_LED, lv_color_hex(0x8A2727), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_outline_opa(ui_Toilet_heating_LED, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_color(ui_Toilet_heating_LED, lv_color_hex(0xBE2C2C), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_opa(ui_Toilet_heating_LED, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+
     lv_obj_add_event_cb(ui_Button_to_screen1, ui_event_Button_to_screen1, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_increment_shower, ui_event_increment_shower, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_decrement_shower, ui_event_decrement_shower, LV_EVENT_ALL, NULL);
@@ -229,6 +263,8 @@ void ui_Screen2_screen_init(void)
     uic_Spinbox_toilet = ui_Spinbox_toilet;
     uic_increment_shower = ui_increment_shower;
     uic_decrement_shower = ui_decrement_shower;
+    uic_Bathroom_heating_LED = ui_Bathroom_heating_LED;
+    uic_Toilet_heating_LED = ui_Toilet_heating_LED;
 
 }
 
@@ -258,5 +294,9 @@ void ui_Screen2_screen_destroy(void)
     ui_decrement_shower = NULL;
     ui_increment_shower1 = NULL;
     ui_decrement_shower1 = NULL;
+    uic_Bathroom_heating_LED = NULL;
+    ui_Bathroom_heating_LED = NULL;
+    uic_Toilet_heating_LED = NULL;
+    ui_Toilet_heating_LED = NULL;
 
 }

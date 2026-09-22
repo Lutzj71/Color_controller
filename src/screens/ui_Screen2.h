@@ -32,6 +32,8 @@ extern void ui_event_increment_shower1(lv_event_t * e);
 extern lv_obj_t * ui_increment_shower1;
 extern void ui_event_decrement_shower1(lv_event_t * e);
 extern lv_obj_t * ui_decrement_shower1;
+extern lv_obj_t * ui_Bathroom_heating_LED;
+extern lv_obj_t * ui_Toilet_heating_LED;
 // CUSTOM VARIABLES
 extern lv_obj_t * uic_Button_to_screen1;
 extern lv_obj_t * uic_Temperature_bathroom;
@@ -40,6 +42,8 @@ extern lv_obj_t * uic_Spinbox_shower;
 extern lv_obj_t * uic_Spinbox_toilet;
 extern lv_obj_t * uic_increment_shower;
 extern lv_obj_t * uic_decrement_shower;
+extern lv_obj_t * uic_Bathroom_heating_LED;
+extern lv_obj_t * uic_Toilet_heating_LED;
 
 #ifdef __cplusplus
 } /*extern "C"*/
