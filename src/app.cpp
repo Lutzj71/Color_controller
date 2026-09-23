@@ -4,6 +4,7 @@
 #include <string.h>
 
 #include "app.h"
+#include "net.h"
 #include "ui.h"
 
 static constexpr uint16_t HISTORY_POINTS = 60;
@@ -24,6 +25,40 @@ static lv_chart_series_t *setup_chart(lv_obj_t *chart, lv_coord_t *buf, lv_coord
   return ser;
 }
 
+static void bathroom_heating_enable_event_cb(lv_event_t *e) {
+  lv_obj_t *sw = static_cast<lv_obj_t *>(lv_event_get_target(e));
+  net_publish_bathroom_heating_enable(lv_obj_has_state(sw, LV_STATE_CHECKED));
+}
+
+static void toilet_heating_enable_event_cb(lv_event_t *e) {
+  lv_obj_t *sw = static_cast<lv_obj_t *>(lv_event_get_target(e));
+  net_publish_toilet_heating_enable(lv_obj_has_state(sw, LV_STATE_CHECKED));
+}
+
+static void bathroom_heat_target_event_cb(lv_event_t *) {
+  net_publish_bathroom_heat_target(app_get_bathroom_heat_target());
+}
+
+static void toilet_heat_target_event_cb(lv_event_t *) {
+  net_publish_toilet_heat_target(app_get_toilet_heat_target());
+}
+
+bool app_get_bathroom_heating_enable(void) {
+  return lv_obj_has_state(ui_Bathroom_heating_enable, LV_STATE_CHECKED);
+}
+
+bool app_get_toilet_heating_enable(void) {
+  return lv_obj_has_state(ui_Toilet_heating_enable, LV_STATE_CHECKED);
+}
+
+int app_get_bathroom_heat_target(void) {
+  return lv_spinbox_get_value(ui_Spinbox_shower);
+}
+
+int app_get_toilet_heat_target(void) {
+  return lv_spinbox_get_value(ui_Spinbox_toilet);
+}
+
 void app_init(void) {
   temperature_series = setup_chart(ui_Temperature_history, temperature_history, 0, 50);
   humidity_series = setup_chart(ui_Humidity_history, humidity_history, 0, 100);
@@ -31,8 +66,14 @@ void app_init(void) {
   lv_label_set_text(ui_Humidity, "-- %");
   lv_label_set_text(ui_Temperature_bathroom, "-- C");
   lv_label_set_text(ui_Temperature_toilet, "-- C");
+  lv_label_set_text(ui_Temperature_air_bathroom, "-- C");
+  lv_label_set_text(ui_Humidity_bathroom, "-- %");
   app_set_bathroom_heating(false);
   app_set_toilet_heating(false);
+  lv_obj_add_event_cb(ui_Bathroom_heating_enable, bathroom_heating_enable_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
+  lv_obj_add_event_cb(ui_Toilet_heating_enable, toilet_heating_enable_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
+  lv_obj_add_event_cb(ui_Spinbox_shower, bathroom_heat_target_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
+  lv_obj_add_event_cb(ui_Spinbox_toilet, toilet_heat_target_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
 }
 
 void app_set_temperature(float celsius) {
@@ -51,6 +92,14 @@ void app_set_bathroom_temperature(float celsius) {
 
 void app_set_toilet_temperature(float celsius) {
   lv_label_set_text_fmt(ui_Temperature_toilet, "%.1f C", celsius);
+}
+
+void app_set_bathroom_air_temperature(float celsius) {
+  lv_label_set_text_fmt(ui_Temperature_air_bathroom, "%.1f C", celsius);
+}
+
+void app_set_bathroom_humidity(int percent) {
+  lv_label_set_text_fmt(ui_Humidity_bathroom, "%d %%", percent);
 }
 
 // Colors/glow lifted from the LED objects as exported by SquareLine.

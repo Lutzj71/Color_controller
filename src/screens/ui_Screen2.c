@@ -5,6 +5,8 @@
 
 #include "../ui.h"
 
+lv_obj_t * uic_Temperature_air_bathroom;
+lv_obj_t * uic_Humidity_bathroom;
 lv_obj_t * uic_Toilet_heating_LED;
 lv_obj_t * uic_Bathroom_heating_LED;
 lv_obj_t * uic_decrement_shower;
@@ -32,6 +34,8 @@ lv_obj_t * ui_increment_shower1 = NULL;
 lv_obj_t * ui_decrement_shower1 = NULL;
 lv_obj_t * ui_Bathroom_heating_LED = NULL;
 lv_obj_t * ui_Toilet_heating_LED = NULL;
+lv_obj_t * ui_Humidity_bathroom = NULL;
+lv_obj_t * ui_Temperature_air_bathroom = NULL;
 // event funtions
 void ui_event_Button_to_screen1(lv_event_t * e)
 {
@@ -150,7 +154,7 @@ void ui_Screen2_screen_init(void)
     lv_spinbox_set_digit_format(ui_Spinbox_shower, 2, 2);
     lv_spinbox_set_range(ui_Spinbox_shower, 10, 32);
     lv_spinbox_set_cursor_pos(ui_Spinbox_shower, 1 - 1);
-    lv_spinbox_set_value(ui_Spinbox_shower, 10);
+    lv_spinbox_set_value(ui_Spinbox_shower, 25);
     lv_obj_set_style_text_align(ui_Spinbox_shower, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_Spinbox_shower, &lv_font_montserrat_30, LV_PART_MAIN | LV_STATE_DEFAULT);
 
@@ -166,17 +170,17 @@ void ui_Screen2_screen_init(void)
     lv_spinbox_set_digit_format(ui_Spinbox_toilet, 2, 2);
     lv_spinbox_set_range(ui_Spinbox_toilet, 10, 32);
     lv_spinbox_set_cursor_pos(ui_Spinbox_toilet, 1 - 1);
-    lv_spinbox_set_value(ui_Spinbox_toilet, 10);
+    lv_spinbox_set_value(ui_Spinbox_toilet, 25);
     lv_obj_set_style_text_font(ui_Spinbox_toilet, &lv_font_montserrat_30, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_set_style_text_align(ui_Spinbox_toilet, LV_TEXT_ALIGN_CENTER, LV_PART_CURSOR | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_Spinbox_toilet, &lv_font_montserrat_30, LV_PART_CURSOR | LV_STATE_DEFAULT);
 
     ui_Toilet_heating_enable = lv_switch_create(ui_Screen2);
-    lv_obj_set_width(ui_Toilet_heating_enable, 98);
+    lv_obj_set_width(ui_Toilet_heating_enable, 50);
     lv_obj_set_height(ui_Toilet_heating_enable, 25);
-    lv_obj_set_x(ui_Toilet_heating_enable, -332);
-    lv_obj_set_y(ui_Toilet_heating_enable, 17);
+    lv_obj_set_x(ui_Toilet_heating_enable, -6);
+    lv_obj_set_y(ui_Toilet_heating_enable, 79);
     lv_obj_set_align(ui_Toilet_heating_enable, LV_ALIGN_CENTER);
 
     ui_Bathroom_heating_enable = lv_switch_create(ui_Screen2);
@@ -253,6 +257,26 @@ void ui_Screen2_screen_init(void)
     lv_obj_set_style_shadow_color(ui_Toilet_heating_LED, lv_color_hex(0xBE2C2C), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_shadow_opa(ui_Toilet_heating_LED, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
+    ui_Humidity_bathroom = lv_label_create(ui_Screen2);
+    lv_obj_set_width(ui_Humidity_bathroom, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_Humidity_bathroom, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_Humidity_bathroom, -207);
+    lv_obj_set_y(ui_Humidity_bathroom, -148);
+    lv_obj_set_align(ui_Humidity_bathroom, LV_ALIGN_CENTER);
+    lv_obj_set_style_text_color(ui_Humidity_bathroom, lv_color_hex(0x14FF00), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_Humidity_bathroom, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_Humidity_bathroom, &ui_font_Font36, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_Temperature_air_bathroom = lv_label_create(ui_Screen2);
+    lv_obj_set_width(ui_Temperature_air_bathroom, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_Temperature_air_bathroom, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_Temperature_air_bathroom, -210);
+    lv_obj_set_y(ui_Temperature_air_bathroom, -203);
+    lv_obj_set_align(ui_Temperature_air_bathroom, LV_ALIGN_CENTER);
+    lv_obj_set_style_text_color(ui_Temperature_air_bathroom, lv_color_hex(0x14FF00), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_Temperature_air_bathroom, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_Temperature_air_bathroom, &ui_font_Font36, LV_PART_MAIN | LV_STATE_DEFAULT);
+
     lv_obj_add_event_cb(ui_Button_to_screen1, ui_event_Button_to_screen1, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_increment_shower, ui_event_increment_shower, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_decrement_shower, ui_event_decrement_shower, LV_EVENT_ALL, NULL);
@@ -269,6 +293,8 @@ void ui_Screen2_screen_init(void)
     uic_decrement_shower = ui_decrement_shower;
     uic_Bathroom_heating_LED = ui_Bathroom_heating_LED;
     uic_Toilet_heating_LED = ui_Toilet_heating_LED;
+    uic_Humidity_bathroom = ui_Humidity_bathroom;
+    uic_Temperature_air_bathroom = ui_Temperature_air_bathroom;
 
 }
 
@@ -304,5 +330,9 @@ void ui_Screen2_screen_destroy(void)
     ui_Bathroom_heating_LED = NULL;
     uic_Toilet_heating_LED = NULL;
     ui_Toilet_heating_LED = NULL;
+    uic_Humidity_bathroom = NULL;
+    ui_Humidity_bathroom = NULL;
+    uic_Temperature_air_bathroom = NULL;
+    ui_Temperature_air_bathroom = NULL;
 
 }

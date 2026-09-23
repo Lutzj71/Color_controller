@@ -10,7 +10,13 @@ static const char *TOPIC_TEMPERATURE = "temperatury/wielicka";
 static const char *TOPIC_HUMIDITY = "temperatury/wielicka_h";
 static const char *TOPIC_BATHROOM_FLOOR = "temperatury/bathroom_floor_t";
 static const char *TOPIC_TOILET_FLOOR = "temperatury/toilet_floor_t";
+static const char *TOPIC_BATHROOM_AIR = "temperatury/shower_t";
+static const char *TOPIC_BATHROOM_HUMIDITY = "temperatury/shower_h";
 static const char *TOPIC_STATUS = "color_controller/status";
+static const char *TOPIC_BATHROOM_HEATING_ENABLE = "temperatury/BathroomDisplay/Button2";
+static const char *TOPIC_TOILET_HEATING_ENABLE = "temperatury/BathroomDisplay/Button3";
+static const char *TOPIC_BATHROOM_HEAT_TARGET = "color_controller/HeatTargetBathroom";
+static const char *TOPIC_TOILET_HEAT_TARGET = "color_controller/HeatTargetToilet";
 static const char *TOPIC_BATHROOM_HEATING = "shelly1pmminig3-3030f9ec8140/command/switch:0";
 static const char *TOPIC_TOILET_HEATING = "temperatury/RelayUnit/rly4";
 
@@ -31,6 +37,8 @@ static void on_message(char *topic, uint8_t *payload, unsigned int len) {
   else if (strcmp(topic, TOPIC_HUMIDITY) == 0) app_set_humidity(atoi(buf));
   else if (strcmp(topic, TOPIC_BATHROOM_FLOOR) == 0) app_set_bathroom_temperature(atof(buf));
   else if (strcmp(topic, TOPIC_TOILET_FLOOR) == 0) app_set_toilet_temperature(atof(buf));
+  else if (strcmp(topic, TOPIC_BATHROOM_AIR) == 0) app_set_bathroom_air_temperature(atof(buf));
+  else if (strcmp(topic, TOPIC_BATHROOM_HUMIDITY) == 0) app_set_bathroom_humidity(atoi(buf));
   else if (strcmp(topic, TOPIC_BATHROOM_HEATING) == 0) app_set_bathroom_heating(strcmp(buf, "on") == 0);
   else if (strcmp(topic, TOPIC_TOILET_HEATING) == 0) app_set_toilet_heating(strcmp(buf, "true") == 0);
 }
@@ -79,12 +87,40 @@ void net_loop(void) {
     mqtt.subscribe(TOPIC_HUMIDITY);
     mqtt.subscribe(TOPIC_BATHROOM_FLOOR);
     mqtt.subscribe(TOPIC_TOILET_FLOOR);
+    mqtt.subscribe(TOPIC_BATHROOM_AIR);
+    mqtt.subscribe(TOPIC_BATHROOM_HUMIDITY);
     mqtt.subscribe(TOPIC_BATHROOM_HEATING);
     mqtt.subscribe(TOPIC_TOILET_HEATING);
+    net_publish_bathroom_heating_enable(app_get_bathroom_heating_enable());
+    net_publish_toilet_heating_enable(app_get_toilet_heating_enable());
     app_set_net_status("MQTT: connected");
     Serial.printf("net: connected, IP %s\n", WiFi.localIP().toString().c_str());
   } else {
     app_set_net_status("MQTT: retrying...");
     Serial.printf("net: MQTT connect failed, rc=%d\n", mqtt.state());
   }
+}
+
+void net_publish_bathroom_heating_enable(bool on) {
+  if (!mqtt.connected()) return;
+  mqtt.publish(TOPIC_BATHROOM_HEATING_ENABLE, on ? "1" : "0");
+}
+
+void net_publish_toilet_heating_enable(bool on) {
+  if (!mqtt.connected()) return;
+  mqtt.publish(TOPIC_TOILET_HEATING_ENABLE, on ? "1" : "0");
+}
+
+void net_publish_bathroom_heat_target(int celsius) {
+  if (!mqtt.connected()) return;
+  char buf[8];
+  snprintf(buf, sizeof(buf), "%d", celsius);
+  mqtt.publish(TOPIC_BATHROOM_HEAT_TARGET, buf);
+}
+
+void net_publish_toilet_heat_target(int celsius) {
+  if (!mqtt.connected()) return;
+  char buf[8];
+  snprintf(buf, sizeof(buf), "%d", celsius);
+  mqtt.publish(TOPIC_TOILET_HEAT_TARGET, buf);
 }
