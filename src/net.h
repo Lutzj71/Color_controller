@@ -4,7 +4,11 @@
 //
 // Topics:
 //   subscribe  temperatury/wielicka          payload: float, degrees C
-//   subscribe  temperatury/wielicka_h        payload: integer percent
+//   subscribe  temperatury/wielicka_p        payload: float, hPa
+//   subscribe  temperatury/wielicka_hist_t   payload: JSON {"start":<UTC s>,"step":1800,"v":[.., null, ..]}
+//   subscribe  temperatury/wielicka_hist_p   payload: same, hPa
+//   publish    temperatury/DisplayUnit/history  "24" - asks Node-RED for both hist series
+//              (on connect, then every 30 min; every 5 min until both arrive)
 //   subscribe  temperatury/bathroom_floor_t  payload: float, degrees C
 //   subscribe  temperatury/toilet_floor_t    payload: float, degrees C
 //   subscribe  temperatury/shower_t          payload: float, degrees C
